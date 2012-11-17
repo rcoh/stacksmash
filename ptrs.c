@@ -1,18 +1,47 @@
 #include <stdio.h>
 #include <stdint.h>
-void my_good_function();
+#include <unistd.h>
+#include <stdlib.h>
+
+void young_people();
+void old_people();
+
+void func();
 int main(int argc, char * argv[]) {
+  func();
+}
+
+void func() {
   void (*handle)();
   char user_input[1024];
-  handle = my_good_function;
-  printf("Tell me things!!\n");
-  // Never ever use this function
-  printf("[Pre injection] Handle points to: %p\n", handle);
+  char user_age[4];
+
+  printf("How old are you?\n");
+  fgets(user_age, 4, stdin);
+
+  // Set handler based on users age
+  int age = atoi(user_age);
+  if(age < 21) {
+    handle = young_people;
+  } else {
+    handle = old_people;
+  }
+
+  printf("%d Years old? What's your life story?\n", age);
+
+  // Read from terminal 
   gets(user_input);
-  printf("[Post injection] Handle points to: %p\n", handle);
+
+  printf("Your life story is %s\n", user_input);
+
+  // Reply to user
   handle();
 }
 
-void my_good_function() {
-  printf("Good.\n");
+void young_people() {
+  printf("Thanks for you life story, youngin.\n");
+}
+
+void old_people() {
+  printf("Thanks for your life story, old timer.\n");
 }
