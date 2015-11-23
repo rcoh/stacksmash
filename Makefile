@@ -1,3 +1,4 @@
+# Builds safe and unsafe versions of the binaries
 CFLAGS := -m32 -std=c99 -Wall -g -Werror -D_GNU_SOURCE
 ASFLAGS := -m32
 LDFLAGS := -m32
@@ -20,6 +21,7 @@ all: $(ALL-BIN)
 
 clean:
 	rm -f *.o $(ALL-BIN)
+
 
 
 
